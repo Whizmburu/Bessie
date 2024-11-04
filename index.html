@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestie answer this For me</title>
+    <link rel="icon" href="https://i.ibb.co/nw1SC3G/file-1267.jpg" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("https://i.ibb.co/nw1SC3G/file-1267.jpg");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            display: none;
+            margin-bottom: 15px;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fdf3f3;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #ff4757;
+        }
+
+        #sendMessage {
+            font-size: 1.1em;
+            margin: 15px 0;
+            color: #ff6b6b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sweetheart🥰Please Answer This</h1>
+        <form id="questionsForm">
+            <div class="question active" id="q1">
+                <label>1. What’s a special moment with me that you’ll always cherish?</label>
+                <input type="text" name="1. Special moment with me" required>
+            </div>
+            <div class="question" id="q2">
+                <label>2. If we had to go on a spontaneous adventure, where would you want us to go?</label>
+                <input type="text" name="2. Spontaneous adventure" required>
+            </div>
+            <div class="question" id="q3">
+                <label>3. What’s something new you’d like us to try together?</label>
+                <input type="text" name="3. Something new to try" required>
+            </div>
+            <div class="question" id="q4">
+                <label>4. What’s one quality of mine that you really appreciate?</label>
+                <input type="text" name="4. Quality appreciated" required>
+            </div>
+            <div class="question" id="q5">
+                <label>5. How do you think our friendship has grown over time?</label>
+                <input type="text" name="5. Friendship growth" required>
+            </div>
+            <div class="question" id="q6">
+                <label>6. If we could create a tradition together, what would it be?</label>
+                <input type="text" name="6. New tradition" required>
+            </div>
+            <div class="question" id="q7">
+                <label>7. What’s the best advice you’ve received that you think I’d benefit from?</label>
+                <input type="text" name="7. Best advice" required>
+            </div>
+            <div class="question" id="q8">
+                <label>8. How would you describe our friendship to someone else?</label>
+                <input type="text" name="8. Describe our friendship" required>
+            </div>
+            <div class="question" id="q9">
+                <label>9. What’s something we should always remind each other to do?</label>
+                <input type="text" name="9. Always remind each other" required>
+            </div>
+            <div class="question" id="q10">
+                <label>10. What’s one big dream you have for both of us?</label>
+                <input type="text" name="10. Big dream for us" required>
+            </div>
+            <div class="nav-buttons">
+                <button type="button" onclick="prevQuestion()">Previous</button>
+                <button type="button" id="nextButton" onclick="nextQuestion()">Next</button>
+            </div>
+            <div id="sendContainer" style="display: none;">
+                <p id="sendMessage">To send your answers, tap the button below:</p>
+                <button type="submit">Send Answers</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 10;
+
+        function showQuestion(number) {
+            document.querySelectorAll('.question').forEach((q) => q.classList.remove('active'));
+            document.getElementById(`q${number}`).classList.add('active');
+
+            document.querySelector('#nextButton').style.display = (number === totalQuestions) ? 'none' : 'inline-block';
+            document.getElementById('sendContainer').style.display = (number === totalQuestions) ? 'block' : 'none';
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < totalQuestions) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        }
+
+        document.getElementById("questionsForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            let message = "Here are my answers:\n\n";
+
+            formData.forEach((value, key) => {
+                message += `${key}: ${value}\n`;
+            });
+
+            const encodedMessage = encodeURIComponent(message);
+            const phoneNumber = "+254740841168";
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+            window.open(whatsappURL, "_blank");
+        });
+
+        showQuestion(currentQuestion);
+    </script>
+</body>
+</html>
